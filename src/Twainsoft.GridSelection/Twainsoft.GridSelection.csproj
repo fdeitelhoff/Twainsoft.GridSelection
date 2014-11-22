@@ -44,8 +44,27 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="GridSelectionView.cs">
+      <SubType>form</SubType>
+    </Compile>
+    <Compile Include="GridSelectionView.designer.cs">
+      <DependentUpon>GridSelectionView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="GridSelectedEventArgs.cs" />
+    <Compile Include="GridSelectionPanel.cs">
+      <SubType>component</SubType>
+    </Compile>
+    <Compile Include="GridSelectionPanel.Designer.cs">
+      <DependentUpon>GridSelectionPanel.cs</DependentUpon>
+    </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="GridSelectionView.resx">
+      <DependentUpon>GridSelectionView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GridSelectionPanel.resx">
+      <DependentUpon>GridSelectionPanel.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
