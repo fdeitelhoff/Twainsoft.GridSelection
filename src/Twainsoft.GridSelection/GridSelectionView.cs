@@ -6,7 +6,6 @@ namespace Twainsoft.GridSelection
 {
     public partial class GridSelectionView : Form
     {
-        private bool constantGridSelection;
         private string elementsSelectedText = "$rowx$column elements selected";
         private string noElementsSelectedText = "No elements selected";
 
@@ -23,18 +22,14 @@ namespace Twainsoft.GridSelection
             set { noElementsSelectedText = value; }
         }
 
-        public bool ConstantGridSelection {
-            get { return constantGridSelection; }
-            set { constantGridSelection = value; }
-        }
-
         public delegate void GridSelectedEventHandler(object sender, GridSelectedEventArgs e);
         public event GridSelectedEventHandler GridSelected;
 
-        public GridSelectionView() {
+        public GridSelectionView()
+        {
             InitializeComponent();
+
             Location = new Point(100, 100);
-            flowLayoutPanel.MouseMove += flowLayoutPanel_MouseMove;
             MouseLeave += flowLayoutPanel_MouseLeave;
             flowLayoutPanel.MouseHover += flowLayoutPanel_MouseHover;
             int row = 1;
@@ -68,34 +63,34 @@ namespace Twainsoft.GridSelection
             }
         }
 
-        void flowLayoutPanel_MouseHover(object sender, EventArgs e) {
-            OnGridSelected(row, column);
+        void flowLayoutPanel_MouseHover(object sender, EventArgs e)
+        {
+            OnGridSelected();
         }
 
-        void p_MouseHover(object sender, EventArgs e) {
-            OnGridSelected(row, column);
+        void p_MouseHover(object sender, EventArgs e)
+        {
+            OnGridSelected();
         }
 
-        void flowLayoutPanel_MouseLeave(object sender, EventArgs e) {
+        void flowLayoutPanel_MouseLeave(object sender, EventArgs e)
+        {
             row = 0;
             column = 0;
 
             ChangeGridSelection();
         }
 
-        void flowLayoutPanel_MouseMove(object sender, MouseEventArgs e) {
-            if (ConstantGridSelection)
-                OnGridSelected(row, column);
-        }
-
-        void p_MouseEnter(object sender, EventArgs e) {
+        void p_MouseEnter(object sender, EventArgs e)
+        {
             row = ((GridSelectionPanel)sender).Row;
             column = ((GridSelectionPanel)sender).Column;
 
             ChangeGridSelection();
         }
 
-        private void ChangeGridSelection() {
+        private void ChangeGridSelection()
+        {
             for (int i = 0; i < 108; i++) {
                 GridSelectionPanel p = (GridSelectionPanel)flowLayoutPanel.Controls[i];
 
@@ -112,50 +107,58 @@ namespace Twainsoft.GridSelection
 
             oLblSelectedElements.Text = text.Replace("$row", row.ToString()).Replace("$column",
                 column.ToString()).Replace("$result", (row * column).ToString());
-
-            if (ConstantGridSelection)
-                OnGridSelected(row, column);
         }
 
-        void p_MouseClick(object sender, MouseEventArgs e) {
-            OnGridSelected(row, column);
-
-            if (e.Button == MouseButtons.Left)
-                Close();
+        void p_MouseClick(object sender, MouseEventArgs e)
+        {
+            HandleInput(e);
         }
 
-        private void FrmGridSelection_KeyDown(object sender, KeyEventArgs e) {
+        private void FrmGridSelection_KeyDown(object sender, KeyEventArgs e)
+        {
             if (e.KeyCode == Keys.Escape)
+            {
                 Close();
+            }
         }
 
-        private void FrmGridSelection_MouseClick(object sender, MouseEventArgs e) {
-            OnGridSelected(row, column);
-
-            if (e.Button == MouseButtons.Left)
-                Close();
+        private void FrmGridSelection_MouseClick(object sender, MouseEventArgs e)
+        {
+            HandleInput(e);
         }
 
-        private void flowLayoutPanel1_MouseClick(object sender, MouseEventArgs e) {
-            OnGridSelected(row, column);
-
-            if (e.Button == MouseButtons.Left)
-                Close();
+        private void flowLayoutPanel1_MouseClick(object sender, MouseEventArgs e)
+        {
+            HandleInput(e);
         }
 
-        protected override void OnPaint(PaintEventArgs e) {
+        protected override void OnPaint(PaintEventArgs e)
+        {
             base.OnPaint(e);
 
             e.Graphics.DrawRectangle(new Pen(Brushes.Black, 2), new Rectangle(0, 0, Width, Height));
 
-            e.Graphics.DrawLine(new Pen(Brushes.Black, 2), new Point(1, 21), new Point(210, 21));
+            e.Graphics.DrawLine(new Pen(Brushes.Black, 2), new Point(1, 21), new Point(Width, 21));
 
             e.Graphics.Dispose();
         }
 
-        protected void OnGridSelected(int row, int column) {
+        private void HandleInput(MouseEventArgs mouseEventArgs)
+        {
+            OnGridSelected();
+
+            if (mouseEventArgs.Button == MouseButtons.Left)
+            {
+                Close();
+            }
+        }
+
+        private void OnGridSelected()
+        {
             if (GridSelected != null)
+            {
                 GridSelected(this, new GridSelectedEventArgs(row, column));
+            }
         }
     }
 }

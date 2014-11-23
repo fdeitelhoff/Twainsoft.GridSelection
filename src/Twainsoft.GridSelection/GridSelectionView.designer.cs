@@ -57,13 +57,11 @@ namespace Twainsoft.GridSelection {
             // 
             // oLblSelectedElements
             // 
-            this.oLblSelectedElements.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+            this.oLblSelectedElements.Dock = System.Windows.Forms.DockStyle.Top;
             this.oLblSelectedElements.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.oLblSelectedElements.Location = new System.Drawing.Point(3, 0);
+            this.oLblSelectedElements.Location = new System.Drawing.Point(0, 0);
             this.oLblSelectedElements.Name = "oLblSelectedElements";
-            this.oLblSelectedElements.Size = new System.Drawing.Size(202, 19);
+            this.oLblSelectedElements.Size = new System.Drawing.Size(208, 19);
             this.oLblSelectedElements.TabIndex = 0;
             this.oLblSelectedElements.Text = "No Elements selected";
             this.oLblSelectedElements.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
