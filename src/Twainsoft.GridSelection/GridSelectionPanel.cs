@@ -4,7 +4,6 @@ using System.Windows.Forms;
 
 namespace Twainsoft.GridSelection
 {
-
     public partial class GridSelectionPanel : Panel
     {
         public int Row { get; set; }

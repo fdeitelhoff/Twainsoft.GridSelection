@@ -2,22 +2,16 @@ using System;
 using System.Drawing;
 using System.Windows.Forms;
 
-namespace Twainsoft.GridSelection {
-
-    public partial class GridSelectionView : Form {
-
-        #region Variablen
-
+namespace Twainsoft.GridSelection
+{
+    public partial class GridSelectionView : Form
+    {
         private bool constantGridSelection;
         private string elementsSelectedText = "$rowx$column elements selected";
         private string noElementsSelectedText = "No elements selected";
 
         private int row;
         private int column;
-
-        #endregion
-
-        #region Eigenschaften
 
         public string ElementsSelectedText {
             get { return elementsSelectedText; }
@@ -34,14 +28,8 @@ namespace Twainsoft.GridSelection {
             set { constantGridSelection = value; }
         }
 
-        #endregion
-
-        #region Events und Delegaten
-
         public delegate void GridSelectedEventHandler(object sender, GridSelectedEventArgs e);
         public event GridSelectedEventHandler GridSelected;
-
-        #endregion
 
         public GridSelectionView() {
             InitializeComponent();
