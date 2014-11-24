@@ -40,7 +40,7 @@ namespace Twainsoft.GridSelection {
             this.flowLayoutPanel.Location = new System.Drawing.Point(3, 23);
             this.flowLayoutPanel.Margin = new System.Windows.Forms.Padding(1);
             this.flowLayoutPanel.Name = "flowLayoutPanel";
-            this.flowLayoutPanel.Size = new System.Drawing.Size(204, 153);
+            this.flowLayoutPanel.Size = new System.Drawing.Size(204, 131);
             this.flowLayoutPanel.TabIndex = 0;
             this.flowLayoutPanel.MouseClick += new System.Windows.Forms.MouseEventHandler(this.flowLayoutPanel1_MouseClick);
             // 
@@ -85,7 +85,7 @@ namespace Twainsoft.GridSelection {
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
-            this.ClientSize = new System.Drawing.Size(210, 180);
+            this.ClientSize = new System.Drawing.Size(210, 158);
             this.ControlBox = false;
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.flowLayoutPanel);
@@ -94,7 +94,6 @@ namespace Twainsoft.GridSelection {
             this.MinimizeBox = false;
             this.Name = "GridSelectionView";
             this.ShowIcon = false;
-            this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.FrmGridSelection_KeyDown);
             this.MouseClick += new System.Windows.Forms.MouseEventHandler(this.FrmGridSelection_MouseClick);

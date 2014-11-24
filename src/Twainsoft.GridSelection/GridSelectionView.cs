@@ -6,107 +6,87 @@ namespace Twainsoft.GridSelection
 {
     public partial class GridSelectionView : Form
     {
-        private string elementsSelectedText = "$rowx$column elements selected";
-        private string noElementsSelectedText = "No elements selected";
+        private int Row { get; set; }
+        private int Column { get; set; }
 
-        private int row;
-        private int column;
-
-        public string ElementsSelectedText {
-            get { return elementsSelectedText; }
-            set { elementsSelectedText = value; }
-        }
-
-        public string NoElementsSelectedText {
-            get { return noElementsSelectedText; }
-            set { noElementsSelectedText = value; }
-        }
-
-        public delegate void GridSelectedEventHandler(object sender, GridSelectedEventArgs e);
-        public event GridSelectedEventHandler GridSelected;
+        private string ElementsSelectedText { get; set; }
+        private string NoElementsSelectedText { get; set; }
 
         public GridSelectionView()
         {
             InitializeComponent();
 
+            ElementsSelectedText = "{0}x{1} elements selected";
+            NoElementsSelectedText = "No elements selected";
+            Row = 1;
+            Column = 1;
+
             Location = new Point(100, 100);
             MouseLeave += flowLayoutPanel_MouseLeave;
-            flowLayoutPanel.MouseHover += flowLayoutPanel_MouseHover;
-            int row = 1;
-            int column = 1;
+
             GridSelectionPanel last = null;
 
-            for (int i = 0; i < 108; i++) {
-                GridSelectionPanel p = new GridSelectionPanel(this, flowLayoutPanel);
+            for (var i = 0; i < 108; i++) {
+                var p = new GridSelectionPanel(this, flowLayoutPanel);
                 p.MouseClick += p_MouseClick;
                 p.MouseEnter += p_MouseEnter;
-                p.MouseHover += p_MouseHover;
                 flowLayoutPanel.Controls.Add(p);
 
                 if (last != null)
                 {
                     if (p.Location.X < last.Location.X)
                     {
-                        row++;
-                        column = 1;
+                        Row++;
+                        Column = 1;
                     }
 
                     if (p.Location.Y <= last.Location.Y)
                     {
-                        column++;
+                        Column++;
                     }
                 }
 
-                p.Row = row;
-                p.Column = column;
+                p.Row = Row;
+                p.Column = Column;
                 last = p;
             }
         }
 
-        void flowLayoutPanel_MouseHover(object sender, EventArgs e)
-        {
-            OnGridSelected();
-        }
-
-        void p_MouseHover(object sender, EventArgs e)
-        {
-            OnGridSelected();
-        }
-
         void flowLayoutPanel_MouseLeave(object sender, EventArgs e)
         {
-            row = 0;
-            column = 0;
+            Row = 0;
+            Column = 0;
 
             ChangeGridSelection();
         }
 
         void p_MouseEnter(object sender, EventArgs e)
         {
-            row = ((GridSelectionPanel)sender).Row;
-            column = ((GridSelectionPanel)sender).Column;
+            Row = ((GridSelectionPanel)sender).Row;
+            Column = ((GridSelectionPanel)sender).Column;
 
             ChangeGridSelection();
         }
 
         private void ChangeGridSelection()
         {
-            for (int i = 0; i < 108; i++) {
-                GridSelectionPanel p = (GridSelectionPanel)flowLayoutPanel.Controls[i];
+            for (var i = 0; i < 108; i++)
+            {
+                var p = (GridSelectionPanel)flowLayoutPanel.Controls[i];
 
-                p.SetBackColor(row, column);
+                p.SetBackColor(Row, Column);
             }
 
             flowLayoutPanel.Invalidate();
 
-            string text = "";
-            if (row != 0 && column != 0)
-                text = elementsSelectedText;
+            if (Row > 0 && Column > 0)
+            {
+                oLblSelectedElements.Text = string.Format(ElementsSelectedText, Column, Row);
+            }
             else
-                text = noElementsSelectedText;
-
-            oLblSelectedElements.Text = text.Replace("$row", row.ToString()).Replace("$column",
-                column.ToString()).Replace("$result", (row * column).ToString());
+            {
+                oLblSelectedElements.Text = NoElementsSelectedText;
+            }
         }
 
         void p_MouseClick(object sender, MouseEventArgs e)
@@ -139,25 +119,13 @@ namespace Twainsoft.GridSelection
             e.Graphics.DrawRectangle(new Pen(Brushes.Black, 2), new Rectangle(0, 0, Width, Height));
 
             e.Graphics.DrawLine(new Pen(Brushes.Black, 2), new Point(1, 21), new Point(Width, 21));
-
-            e.Graphics.Dispose();
         }
 
         private void HandleInput(MouseEventArgs mouseEventArgs)
         {
-            OnGridSelected();
-
             if (mouseEventArgs.Button == MouseButtons.Left)
             {
                 Close();
-            }
-        }
-
-        private void OnGridSelected()
-        {
-            if (GridSelected != null)
-            {
-                GridSelected(this, new GridSelectedEventArgs(row, column));
             }
         }
     }

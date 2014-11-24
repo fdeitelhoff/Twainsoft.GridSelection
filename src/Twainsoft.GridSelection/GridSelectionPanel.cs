@@ -51,7 +51,9 @@ namespace Twainsoft.GridSelection
             if (Row <= row && Column <= column)
             {
                 IsBackcolorActive = true;
-            } else {
+            }
+            else
+            {
                 IsBackcolorActive = false;
             }
         }
