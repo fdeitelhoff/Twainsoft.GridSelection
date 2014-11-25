@@ -27,28 +27,28 @@ namespace Twainsoft.GridSelection
             GridSelectionPanel last = null;
 
             for (var i = 0; i < 108; i++) {
-                var p = new GridSelectionPanel(this, flowLayoutPanel);
-                p.MouseClick += p_MouseClick;
-                p.MouseEnter += p_MouseEnter;
-                flowLayoutPanel.Controls.Add(p);
+                var panel = new GridSelectionPanel(this, flowLayoutPanel);
+                panel.MouseClick += p_MouseClick;
+                panel.MouseEnter += p_MouseEnter;
+                flowLayoutPanel.Controls.Add(panel);
 
                 if (last != null)
                 {
-                    if (p.Location.X < last.Location.X)
+                    if (panel.Location.X < last.Location.X)
                     {
                         Row++;
                         Column = 1;
                     }
 
-                    if (p.Location.Y <= last.Location.Y)
+                    if (panel.Location.Y <= last.Location.Y)
                     {
                         Column++;
                     }
                 }
 
-                p.Row = Row;
-                p.Column = Column;
-                last = p;
+                panel.Row = Row;
+                panel.Column = Column;
+                last = panel;
             }
         }
 

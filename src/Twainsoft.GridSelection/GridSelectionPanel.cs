@@ -10,7 +10,6 @@ namespace Twainsoft.GridSelection
         public int Column { get; set; }
 
         private Rectangle PanelRectangle { get; set; }
-        private bool IsBackcolorActive { get; set; }
 
         private GridSelectionPanel()
         {
@@ -23,19 +22,13 @@ namespace Twainsoft.GridSelection
             : this()
         {
             flowLayoutPanel.MouseMove += flp_MouseMove;
-            flowLayoutPanel.Invalidated += flowLayoutPanel_Invalidated;
+            flowLayoutPanel.MouseLeave += frmGridSelection_MouseLeave;
             gridSelectionView.MouseLeave += frmGridSelection_MouseLeave;
         }
 
         void frmGridSelection_MouseLeave(object sender, EventArgs e)
         {
-            IsBackcolorActive = false;
             BackColor = Color.White;
-        }
-
-        void flowLayoutPanel_Invalidated(object sender, InvalidateEventArgs e)
-        {
-            BackColor = IsBackcolorActive ? Color.Orange : Color.White;
         }
 
         void flp_MouseMove(object sender, MouseEventArgs e)
@@ -50,11 +43,11 @@ namespace Twainsoft.GridSelection
         {
             if (Row <= row && Column <= column)
             {
-                IsBackcolorActive = true;
+                BackColor = Color.Orange;
             }
             else
             {
-                IsBackcolorActive = false;
+                BackColor = Color.White;
             }
         }
     }
