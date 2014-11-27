@@ -183,3 +183,4 @@ UpgradeLog*.htm
 FakesAssemblies/
 
 !.paket/paket.bootstrapper.exe
+/packages
